@@ -104,10 +104,12 @@ public class MainController {
         logger.info("Fetching course with courseName: {}", courseName);
         try {
             Courses foundCourse = this.courseService.getCourseByName(courseName);
-            return new ResponseEntity<>(foundCourse,HttpStatus.OK);
-        } catch (CourseNotFoundException e){
-            logger.info("Course not found with name: {}",courseName);
-            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+            if (foundCourse!=null){
+                return new ResponseEntity<>(foundCourse,HttpStatus.OK);
+            }else {
+                logger.info("Course not found with name: {}",courseName);
+                return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+            }
         } catch (Exception e){
             logger.info("Error fetching course with name: {}",courseName,e);
             return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
