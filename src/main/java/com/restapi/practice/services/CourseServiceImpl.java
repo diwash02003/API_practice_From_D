@@ -21,14 +21,11 @@ public class CourseServiceImpl implements CourseService {
     }
     @Override
     public List<Courses> getCourses() {
-        logger.info("Getting list of all courses");
-        logger.info("{}",courseList);
         return courseList;
     }
 
     @Override
     public Courses getCourse(long courseId) {
-        logger.info("Getting course with ID: {}", courseId);
         Courses c = null;
         for(Courses courses :courseList){
             if(courses.getId()==courseId){
@@ -41,20 +38,19 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Courses addCourse(Courses course) {
-        logger.info("Adding new course: {}", course);
         courseList.add(course);
         return course;
     }
 
     @Override
-    public void deleteCourse(long courseId) {
+    public boolean deleteCourse(long courseId) {
 
 //        for(Courses courses:courseList){
 //            if (courses.getId()==courseId){
 //                courseList.remove(courses);
 //            }
 //        }
-        courseList.removeIf(courses -> courses.getId() == courseId);
+        return courseList.removeIf(courses -> courses.getId() == courseId);
     }
 
     @Override
@@ -63,11 +59,9 @@ public class CourseServiceImpl implements CourseService {
             if(existingCourse.getId()==courseId){
                 existingCourse.setTitle(courses.getTitle());
                 existingCourse.setDescription(courses.getDescription());
-                logger.info("Updating course with ID: {}", courseId);
                 return existingCourse;
             }
         }
-        logger.warn("Course with ID: {} not found", courseId);
         return null;
     }
 
@@ -76,7 +70,6 @@ public class CourseServiceImpl implements CourseService {
         Courses c = null;
         for(Courses existingCourse: courseList){
             if(existingCourse.getTitle().equalsIgnoreCase(courseName)){
-                logger.info("Course found : {}",courseName);
                 c= existingCourse;
                 break;
             }
