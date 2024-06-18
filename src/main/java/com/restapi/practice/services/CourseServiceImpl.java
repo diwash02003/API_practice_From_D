@@ -76,6 +76,7 @@ public class CourseServiceImpl implements CourseService {
         Courses c = null;
         for(Courses existingCourse: courseList){
             if(existingCourse.getTitle().equalsIgnoreCase(courseName)){
+                logger.info("Course found : {}",courseName);
                 c= existingCourse;
                 break;
             }

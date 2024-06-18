@@ -11,7 +11,10 @@ import java.util.List;
 
 @RestController
 public class MainController {
+    //Logger class for l
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+
+    //CourseService instance for business logic
     private final CourseService courseService;
 
     public MainController(CourseService courseService) {
@@ -32,7 +35,7 @@ public class MainController {
         return this.courseService.getCourses();
     }
 
-    @GetMapping("/courses/{courseId}")
+    @GetMapping("/courses/id/{courseId}")
     public Courses getCourse(@PathVariable long courseId ){
         logger.info("Fetching course with ID: {}", courseId);
         return this.courseService.getCourse(courseId);
@@ -44,7 +47,7 @@ public class MainController {
         return this.courseService.addCourse(courses);
     }
 
-    @DeleteMapping("/courses/id/{courseId}")
+    @DeleteMapping("/courses/{courseId}")
     public void deleteCourseById(@PathVariable long courseId){
         logger.info("Deleting course with ID: {}", courseId);
         this.courseService.deleteCourse(courseId);
